@@ -16,6 +16,7 @@ protected:
 	// removes a node with given int value of 'data'
 	void removeHelp(Node* node, int data) {
 		Node* x = nullptr;
+		// 
 		Node* a, * b;
 		while (node != nullptr) {
 			if (node->value == data) x = node;
