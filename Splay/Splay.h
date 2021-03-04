@@ -163,10 +163,14 @@ protected:
 			std::cout << node->value << std::endl;
 		}
 	}
-	// generalized search method that will return the node being searched for
+	// generalized search method that will 
+	// splay and return the node being searched for
 	Node* searchHelp(Node* node, int i) {
-		
-		if (node == nullptr || i == node->value) return node;
+		if (node == nullptr) return node;
+		else if (i == node->value) {
+			splay(node);
+			return node;
+		}
 		if (i < node->value) return searchHelp(node->leftChild, i);
 		return searchHelp(node->rightChild, i);
 	}
@@ -189,7 +193,8 @@ public:
 	Node* max(Node*);
 	// returns a node with the minimum value
 	Node* min(Node*);
-	// public method to call for a search of a particular node
+	// calls generalized search method to indicate if
+	// particular value is in tree
 	bool isFound(int);
 };
 

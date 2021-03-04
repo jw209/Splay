@@ -25,9 +25,9 @@ int main() {
 	std::cout << "\n";
 
 	std::cout << x.isFound(5) << std::endl;
-	std::cout << x.isFound(8) << std::endl;
+	std::cout << x.isFound(12) << std::endl;
 
-	x.remove(8);
+	//x.remove(8);
 
 	std::cout << "\n";
 	x.preOrder();
