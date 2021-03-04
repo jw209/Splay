@@ -5,32 +5,16 @@
 #include "Splay.h"
 #include <iostream>
 
-int main() {
-	Splay x;
-	x.insert(10);
-	std::cout << "\n";
-	x.preOrder();
+using namespace std;
 
-	x.insert(12);
-	std::cout << "\n";
-	x.preOrder();
+int main()
+{
+    Splay x;
+    for (int i = 0; i < 1000000; i++) {
+        x.insert(i);
+    }
 
-	x.insert(8);
-	std::cout << "\n";
-	x.preOrder();
+    cout << x.isFound(-1042) << endl;
 
-	x.insert(20);
-	std::cout << "\n";
-	x.preOrder();
-	std::cout << "\n";
-
-	std::cout << x.isFound(5) << std::endl;
-	std::cout << x.isFound(12) << std::endl;
-
-	//x.remove(8);
-
-	std::cout << "\n";
-	x.preOrder();
-
-	return 0;
+    return 0;
 }

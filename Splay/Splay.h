@@ -166,13 +166,15 @@ protected:
 	// generalized search method that will 
 	// splay and return the node being searched for
 	Node* searchHelp(Node* node, int i) {
-		if (node == nullptr) return node;
-		else if (i == node->value) {
-			splay(node);
-			return node;
+
+		Node* temp = node;
+		while (temp != nullptr && temp->value != i) {
+			if (temp->value > i) temp = temp->leftChild;
+			else temp = temp->rightChild;
 		}
-		if (i < node->value) return searchHelp(node->leftChild, i);
-		return searchHelp(node->rightChild, i);
+		if (temp == nullptr) return temp;
+		else if (temp->value == i) splay(temp);
+		return temp;
 	}
 public:
 	// default constructor

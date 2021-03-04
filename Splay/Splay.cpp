@@ -61,4 +61,5 @@ bool Splay::isFound(int i) {
 	Node* temp = searchHelp(this->root, i);
 	if (temp == nullptr) return 0;
 	else if (temp->value == i) return 1;
+	else return 0;
 }
