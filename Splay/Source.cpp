@@ -1,3 +1,7 @@
+/*
+*	Source program for testing the splay tree basic operations
+*/
+
 #include "Splay.h"
 #include <iostream>
 
@@ -16,6 +20,15 @@ int main() {
 	x.preOrder();
 
 	x.insert(20);
+	std::cout << "\n";
+	x.preOrder();
+	std::cout << "\n";
+
+	std::cout << x.isFound(5) << std::endl;
+	std::cout << x.isFound(8) << std::endl;
+
+	x.remove(8);
+
 	std::cout << "\n";
 	x.preOrder();
 

@@ -163,6 +163,13 @@ protected:
 			std::cout << node->value << std::endl;
 		}
 	}
+	// generalized search method that will return the node being searched for
+	Node* searchHelp(Node* node, int i) {
+		
+		if (node == nullptr || i == node->value) return node;
+		if (i < node->value) return searchHelp(node->leftChild, i);
+		return searchHelp(node->rightChild, i);
+	}
 public:
 	// default constructor
 	Splay() { root = nullptr; }
@@ -182,6 +189,8 @@ public:
 	Node* max(Node*);
 	// returns a node with the minimum value
 	Node* min(Node*);
+	// public method to call for a search of a particular node
+	bool isFound(int);
 };
 
 #endif SPLAY_HPP

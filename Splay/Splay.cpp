@@ -55,3 +55,10 @@ Node* Splay::min(Node* node) {
 	while (node->leftChild != nullptr) node = node->leftChild;
 	return node;
 }
+
+bool Splay::isFound(int i) {
+
+	Node* temp = searchHelp(this->root, i);
+	if (temp == nullptr) return 0;
+	else if (temp->value == i) return 1;
+}
