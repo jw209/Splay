@@ -35,7 +35,7 @@ void Splay::insert(int data) {
 
 	// set the parent of the node equal to y
 	node->parent = y;
-	// perform the assignment of node to the appropriate position
+	// perform the insertion of node to the appropriate position
 	if (y == nullptr) root = node;
 	else if (node->value < y->value) y->leftChild = node;
 	else y->rightChild = node;

@@ -1,4 +1,11 @@
-#pragma once
+/*
+*	Node.hpp
+* 
+*	Declaration file for Node class.
+*/
+#ifndef NODE_HPP
+#define NODE_HPP
+
 class Node
 {
 public:
@@ -8,3 +15,4 @@ public:
 	Node* rightChild;
 };
 
+#endif //NODE_HPP_INCLUDED

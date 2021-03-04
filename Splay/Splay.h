@@ -15,53 +15,77 @@ protected:
 	Node* root;
 	// removes a node with given int value of 'data'
 	void removeHelp(Node* node, int data) {
+		// x will help us traverse through the tree
 		Node* x = nullptr;
-		// 
+		// a and b will store the position of x's children
 		Node* a, * b;
-		while (node != nullptr) {
+		while (node != nullptr) {	// traverse until value is found
 			if (node->value == data) x = node;
 			if (node->value <= data) node = node->rightChild;
 			else node = node->leftChild;
 		}
 
+		// if x is nullptr tree is either empty or it reached the end without finding value
 		if (x == nullptr) {
-			std::cout << "Value does not exist in splay tree" << std::endl;
+			std::cout << "Tree is empty or value does not exist within the tree." << std::endl;
 			return;
 		}
+
+		// split x
 		split(x, a, b);
+		// if a has a left child, make its parent null
 		if (a->leftChild) a->leftChild->parent = nullptr;
+		// joins a's left child and b at the root and then delete a
 		root = join(a->leftChild, b);
 		delete(a);
 		a = nullptr;
 	}
-	// splits tree into two nodes 'a' and 'b'
+	// 
 	void split(Node*& x, Node*& a, Node*& b) {
+		// splay the node (bring it to the top)
 		splay(x);
+		// if x has a right child, assign it to be and make its parent null
 		if (x->rightChild) {
 			b = x->rightChild;
 			b->parent = nullptr;
-		}
+		} // else, set b itself to null
 		else b = nullptr;
+		// set a equal to the node
 		a = x;
+		// a's right child become null
 		a->rightChild = nullptr;
+		// x becomes null
 		x = nullptr;
 	}
 	// joins two nodes 'a' and 'b'
 	Node* join(Node* a, Node* b) {
+		// check if either node does not exist
 		if (!a) return b;
 		if (!b) return a;
+		// temp node x stores the max of subtree 'a'
 		Node* x = max(a);
+		// bring x to the top
 		splay(x);
+		// x's right child is set to 'b'
 		x->rightChild = b;
+		// b's parent is set equal to x
 		b->parent = x;
 		return x;
 	}
 	// used for 'zag' operations (rotating node left)
 	void leftRotate(Node* x) {
+		
+		// assign x's right child to a temp node 'y'
 		Node* y = x->rightChild;
+		// x's (remember this is the parent of the inserted node)
+		// right child is assigned y's left child (y became the node of insertion)
 		x->rightChild = y->leftChild;
+		// if y has a left child, assign its parent the node x
 		if (y->leftChild != nullptr) y->leftChild->parent = x;
+		// y's parent (x) is assigned x's parent
 		y->parent = x->parent;
+
+		// perform insertion
 		if (!x->parent) this->root = y;
 		else if (x == x->parent->leftChild) x->parent->leftChild = y;
 		else x->parent->rightChild = y;
@@ -69,11 +93,15 @@ protected:
 		x->parent = y;
 	}
 	// used for 'zig' operations (rotating node right)
+	// *for comments on this method, see leftRotate method. Process is the same,
+	// except the logic is slightly changed to work as a right rotation.
 	void rightRotate(Node* x) {
+
 		Node* y = x->leftChild;
 		x->leftChild = y->rightChild;
 		if (y->rightChild != nullptr) y->rightChild->parent = x;
 		y->parent = x->parent;
+
 		if (!x->parent) this->root = y;
 		else if (x == x->parent->rightChild) x->parent->rightChild = y;
 		else x->parent->leftChild = y;
@@ -82,8 +110,10 @@ protected:
 	}
 	// Splay operation (ADD MORE OF A COMMENT)
 	void splay(Node* x) {
+		// while x has a parent that is not null
 		while (x->parent) {
-			if (!x->parent->parent) {  // if x's grandparent is null
+			if (!x->parent->parent) {  // if x does not have a grandparent 
+				// if x is left child perform a zig rotation, else, perform a zag rotation
 				if (x == x->parent->leftChild) rightRotate(x->parent); // zig
 				else leftRotate(x->parent); // zag
 			}  // if x is the left child and its parent is the left child of its parent
